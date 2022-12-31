@@ -1,0 +1,166 @@
+/* header & footer */
+div span{
+    display: block;
+}
+header{
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+}
+.brand-container{
+    display: flex;
+    flex-direction: row;
+}
+.logo{
+    height: 60px;
+    width: 60px;
+}
+header h1{
+    color: rgb(253, 196, 24);
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 35px;
+}
+header .search-container span{
+    height: 20px
+}
+header .search{
+    display: flex;
+    justify-content: space-around;
+}
+.search input{
+    padding: 5px;
+    border-radius: 3px;
+    width: 600px;
+    height: 30px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;  
+    font-size: 18px;
+}
+.search button{
+    padding: 5px;
+    border-radius: 3px;
+    width: 110px;
+    height: auto;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;  
+    font-weight: 300;
+    font-size: 25px;
+    color:black;
+    background-color:rgb(253, 196, 24);
+}
+.account-cart-container{
+    margin-top: 2%;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    width: 250px;
+}
+.account a{
+    color: white;
+    font-size: 20px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.account i{
+    color: white;
+    font-size: 30px;
+}
+.cart a{
+    color: rgb(253, 196, 24);
+    font-size: 20px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.cart i{
+    color: rgb(253, 196, 24);
+    font-size: 30px;
+}
+.footer-container1{
+    background-color: rgb(253, 196, 24);
+    height: auto;
+    display: flex;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    padding-left: 5%;
+    padding-right: 5%;
+    justify-content: space-around;
+}
+.footer-container1 label{
+    font-size: 20px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.footer-container1 i{
+    font-size: 25px;
+    color:black;
+}
+.footer-container1 ul{
+    padding: 0%;
+    list-style: none;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;  
+}
+.footer-container1 ul li{
+    padding-top: 5%;
+}
+.footer-container1 ul a{
+    color:black;
+    font-size: 18px;
+}
+.footer-container1 ul a:hover{
+    text-decoration: underline;
+}
+.social-media-icons{
+    margin-top: 10%;
+    display: flex;
+    justify-content: space-around;
+}
+.footer-container2{
+    background-color: black;
+    height: auto;
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.useful-links{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0%;
+    padding-bottom: 0%;
+}
+.useful-links a{
+    font-size: 16px;
+    color: white;
+    margin: 0.5%;
+}
+.useful-links a:hover{
+    color: rgb(253, 196, 24);
+    text-decoration: underline;
+}
+.trade-mark{
+    margin-top: 0%;
+    padding-top: 0%;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+}
+/* home */
+
+
+/* contact us */
+
+
+
+/* about us */
+
+
+
+
+
+
+
+/* general */
+a{
+    text-decoration: none;
+}
+a span{
+    color: black;
+}
