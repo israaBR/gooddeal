@@ -1,103 +1,69 @@
-//products objects
 class Product {
-  constructor(img_, title_, category_) {
+  constructor(id_, title_, price_, desc_, category_, img_, rating_, total_) {
+    this.id = id_;
+    this.title = title_;
+    this.price = price_;
     this.img = img_;
     this.title = title_;
-    this.desc = "Lorem ipsum dolor sit amet consectetur, adipisicing elit.";
+    this.desc = desc_;
     this.category = category_;
+    this.rating = {
+      rate: rating_,
+      count: total_,
+    };
   }
 }
-let products = [];
-function createProducts() {
-  // create objects from class product
-  let prod1 = new Product(
-    "https://images.flannels.com/images/products/70921305_4pl.jpg",
-    "Gucci Bag",
-    "bags"
-  );
-  let prod2 = new Product(
-    "https://cdn.shopify.com/s/files/1/2780/3536/collections/leisure_500x.jpg?v=1649250810",
-    "Travel Bag",
-    "bags"
-  );
-  let prod3 = new Product(
-    "https://i.ebayimg.com/images/g/bbgAAOSwNwVjEKrT/s-l500.jpg",
-    "Tote Bag",
-    "bags"
-  );
-  products.push(prod1);
-  products.push(prod2);
-  products.push(prod3);
-  let prod4 = new Product(
-    "https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2021%2F08%2Fnike-air-presto-what-the-DM9554-900-1.jpg?q=75&w=800&cbr=1&fit=max",
-    "Sneaker",
-    "shoes"
-  );
-  let prod5 = new Product(
-    "https://cdn.shopify.com/s/files/1/0008/1798/7645/products/ATTACK2.0LOW_AD90028M_BHY_6_1024x.jpg?v=1664895440",
-    "Basketball Shoes",
-    "shoes"
-  );
-  let prod6 = new Product(
-    "https://img.freepik.com/premium-photo/women-s-boots-with-black-genuine-leather-heels-isolated-white-background-photo-from-side-diagonally-foreshortened-from-women-s-shoe-collection-2022_173815-21420.jpg?w=2000",
-    "Boots",
-    "shoes"
-  );
-  products.push(prod4);
-  products.push(prod5);
-  products.push(prod6);
-  let prod7 = new Product(
-    "https://us.benetton.com/dw/image/v2/BBSF_PRD/on/demandware.static/-/Sites-ucb-master/default/dwef17dac2/images/Full_PDP_sq/Benetton_22A_1035D1P17_20B_F_Full_PDP_sq.jpg?sw=850&sh=850",
-    "Crew neck",
-    "tops"
-  );
-  let prod8 = new Product(
-    "https://dfcdn.defacto.com.tr/2/T6889AZ_22SM_WT34_01_02.jpg",
-    "Jacket",
-    "tops"
-  );
-  let prod9 = new Product(
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUpudQfm9S1eZRpV2h3cLaR-adpTwGS7e_5A&usqp=CAU",
-    "Pullover",
-    "tops"
-  );
-  products.push(prod7);
-  products.push(prod8);
-  products.push(prod9);
-  let prod10 = new Product(
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUpudQfm9S1eZRpV2h3cLaR-adpTwGS7e_5A&usqp=CAU",
-    "Pullover",
-    "tops"
-  );
-  let prod11 = new Product(
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUpudQfm9S1eZRpV2h3cLaR-adpTwGS7e_5A&usqp=CAU",
-    "Pullover",
-    "tops"
-  );
-  let prod12 = new Product(
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUpudQfm9S1eZRpV2h3cLaR-adpTwGS7e_5A&usqp=CAU",
-    "Pullover",
-    "tops"
-  );
-  products.push(prod10);
-  products.push(prod11);
-  products.push(prod12);
+
+// fetch products from the API
+let categoriesList = [];
+let productsList = [];
+let cart_products = [];
+
+async function fetch_categories() {
+  let result = await (
+    await fetch("https://fakestoreapi.com/products/categories")
+  ).json();
+  return result;
+}
+async function fetch_all_products() {
+  let result = await (await fetch("https://fakestoreapi.com/products")).json();
+  return result;
+}
+async function fetch_category_products(category) {
+  let result = await (
+    await fetch(`https://fakestoreapi.com/products/category/${category}`)
+  ).json();
+  return result;
 }
 
-function generateCard(prod) {
+// view products in home page
+let categoriesParent = document.querySelector(".categories");
+let productsParent = document.querySelector(".products");
+
+function create_product(product) {
+  return new Product(
+    product.id,
+    product.title,
+    product.price,
+    product.description,
+    product.category,
+    product.image,
+    product.rating.rate,
+    product.rating.count
+  );
+}
+function generate_product_card(prod) {
   let product = document.createElement("div");
   product.classList.add("card");
   product.classList.add("m-2");
   product.setAttribute("style", "width: 17rem;");
   let productBody = document.createElement("div");
   productBody.classList.add("card-body");
-
   let productImg = document.createElement("img");
   productImg.classList.add("card-img-top");
   productImg.src = prod.img;
   productImg.style.height = "50%";
   productBody.append(productImg);
-
   let productTitle = document.createElement("p");
   productTitle.textContent = prod.title;
   productTitle.classList.add("card-title");
@@ -115,30 +81,46 @@ function generateCard(prod) {
   product.append(productBody);
   return product;
 }
-
-function viewProducts(category) {
-  //create a card for each product
-  let productsParent = document.querySelector(".products");
+function view_products() {
   productsParent.textContent = "";
-  if (category == "all") {
-    products.forEach((prod) => {
-      productsParent.append(generateCard(prod));
-    });
-  } else {
-    products.forEach((prod) => {
-      if (prod.category == category) {
-        productsParent.append(generateCard(prod));
-      }
-    });
-  }
+  productsList.forEach((prod) => {
+    productsParent.append(generate_product_card(prod));
+  });
 }
-createProducts();
-viewProducts("all");
+function generate_category_btns() {
+  categoriesList.forEach((category) => {
+    let category_btn = document.createElement("button");
+    category_btn.classList.add("btn");
+    category_btn.classList.add("btn-warning");
+    category_btn.classList.add("mx-2");
+    category_btn.setAttribute("id", category);
+    category_btn.textContent = category;
+    category_btn.addEventListener("click", (event) => {
+      fetch_category_products(event.target.id)
+        .then((result) => {
+          productsList = [];
+          result.forEach((product) => {
+            productsList.push(create_product(product));
+          });
+          view_products();
+        })
+        .catch((error) => console.log(error));
+    });
+    categoriesParent.append(category_btn);
+  });
+}
+
+fetch_categories()
+  .then((result) => {
+    result.forEach((category) => {
+      categoriesList.push(category);
+    });
+  })
+  .catch((error) => console.log(error));
 
 //images slider
 let images = [
   "https://media.istockphoto.com/id/1362508125/vector/modern-3d-illustration-of-online-shopping.jpg?s=612x612&w=0&k=20&c=FLd82wTjDmo0HiFzuIKCSaNntSPH8O1sZ_OnSwmvS74=",
-  // "https://media.istockphoto.com/id/1286101911/vector/3d-web-vector-illustrations-online-shopping-design-graphic-elements-signs-symbols-mobile.jpg?s=612x612&w=0&k=20&c=_GQg9aFj4YQE0ZsoctePFePwxVVZNZmfUqji6frPUg8=",
   "https://img.freepik.com/premium-psd/online-shopping-store-concept-mobile-phone-with-3d-shopping-cart-shopping-bag-like-icon_106244-2052.jpg?w=2000",
   "https://img.freepik.com/premium-psd/online-shopping-store-concept-mobile-phone-with-3d-shopping-cart-shopping-bag-gift-boxes_106244-2050.jpg?w=2000",
 ];
@@ -163,21 +145,15 @@ document.getElementById("slider-next").addEventListener("click", view_next);
 
 //filter products by category
 document.getElementById("all-cat").addEventListener("click", () => {
-  window.clearInterval(slideShow);
-  viewProducts("all");
-});
-document.getElementById("bags-cat").addEventListener("click", () => {
-  window.clearInterval(slideShow);
-  viewProducts("bags");
-});
-document.getElementById("shoes-cat").addEventListener("click", () => {
-  viewProducts("shoes");
-});
-document.getElementById("tops-cat").addEventListener("click", () => {
-  viewProducts("tops");
-});
-document.getElementById("bottoms-cat").addEventListener("click", () => {
-  viewProducts("bottoms");
+  fetch_all_products()
+    .then((result) => {
+      productsList = [];
+      result.forEach((product) => {
+        productsList.push(create_product(product));
+      });
+      view_products();
+    })
+    .catch((error) => console.log(error));
 });
 
 //add to cart
@@ -185,3 +161,18 @@ let cartCount = document.getElementById("lblCartCount");
 function incrementCartCount() {
   cartCount.textContent = Number(cartCount.textContent) + 1;
 }
+
+///////////////////////////////////////////////////////////////////////////////////
+fetch_all_products()
+  .then((result) => {
+    result.forEach((product) => {
+      productsList.push(create_product(product));
+    });
+    view_products();
+  })
+  .catch((error) => console.log(error));
+fetch_categories()
+  .then((result) => {
+    generate_category_btns();
+  })
+  .catch((error) => console.log(error));
