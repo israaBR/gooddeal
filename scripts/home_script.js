@@ -17,7 +17,7 @@ class Product {
 // fetch products from the API
 let categoriesList = [];
 let productsList = [];
-let cart_products = [];
+let cart_products_IDs = [];
 
 async function fetch_categories() {
   let result = await (
@@ -52,75 +52,68 @@ function create_product(product) {
     product.rating.count
   );
 }
-
+// data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right popover"
 function generate_product_card(prod) {
+  let open_details = document.createElement("div");
+  open_details.setAttribute("class", "position-absolute top-0 end-0");
+  let open_details_btn = document.createElement("button");
+  open_details_btn.setAttribute("class", "btn btn-outline-black");
+  open_details_btn.setAttribute("data-bs-container", "body");
+  open_details_btn.setAttribute("data-bs-toggle", "popover");
+  open_details_btn.setAttribute("data-bs-placement", "right");
+  open_details_btn.setAttribute("title", prod.title);
+  open_details_btn.setAttribute("data-bs-content", prod.description);
+  let open_details_icon = document.createElement("i");
+  open_details_icon.setAttribute("class", "fa-solid fa-ellipsis");
+  open_details_btn.append(open_details_icon);
+  open_details.append(open_details_btn);
   let productImg = document.createElement("img");
-  productImg.classList.add("card-img-top");
-  productImg.classList.add("mx-5");
-  productImg.classList.add("mb-2");
-  productImg.classList.add("h-50");
+  productImg.setAttribute("class", "card-img-top mx-5 mb-2 h-50");
   productImg.src = prod.img;
   productImg.style.width = "60%";
   productImg.style.height = "20%";
   let productTitle = document.createElement("p");
+  productTitle.setAttribute("class", "card-title h-auto my-3 fw-bold");
   productTitle.textContent = String(prod.title).slice(0, 18) + " ..";
-  productTitle.classList.add("card-title");
-  productTitle.classList.add("h-auto");
-  productTitle.classList.add("my-3");
   let product_info = document.createElement("div");
-  product_info.classList.add("row");
-  product_info.classList.add("h-auto");
+  product_info.setAttribute("class", "row h-auto");
   let product_price = document.createElement("div");
-  product_price.classList.add("col-6");
-  product_price.classList.add("product-price");
+  product_price.setAttribute("class", "col-6 product-price");
   let currency = document.createElement("p");
+  currency.setAttribute("class", "fw-bold fs-4 d-inline-block");
   currency.textContent = "$";
-  currency.classList.add("fw-bold");
-  currency.classList.add("fs-4");
-  currency.classList.add("d-inline-block");
   let price = document.createElement("p");
-  price.classList.add("price");
-  price.classList.add("fs-5");
-  price.classList.add("d-inline-block");
+  price.setAttribute("class", "fs-5 d-inline-block");
   price.textContent = prod.price;
   product_price.append(currency, price);
   let product_rating = document.createElement("div");
-  product_rating.classList.add("col-6");
-  product_rating.classList.add("product-rating");
+  product_rating.setAttribute("class", "col-6 product-rating");
   let rate = document.createElement("p");
-  rate.classList.add("rate");
-  rate.classList.add("d-inline-block");
-  rate.classList.add("fw-bold");
-  rate.classList.add("fs-5");
+  rate.setAttribute("class", "rate d-inline-block fw-bold fs-5");
   rate.textContent = prod.rating.rate;
   let star = document.createElement("i");
-  star.classList.add("fa-regular");
-  star.classList.add("fa-star");
-  star.classList.add("fw-bold");
-  star.classList.add("fs-5");
+  star.setAttribute("class", "fa-regular fa-star fw-bold fs-5");
   let count = document.createElement("p");
-  count.classList.add("count");
-  count.classList.add("my-1");
-  count.classList.add("d-inline-block");
+  count.setAttribute("class", "count my-1 d-inline-block");
   count.textContent = ` (${prod.rating.count})`;
   product_rating.append(rate, star, count);
   let product_btn = document.createElement("div");
   product_btn.classList.add("col-12");
   let addToCart_btn = document.createElement("button");
-  addToCart_btn.classList.add("btn");
-  addToCart_btn.classList.add("btn-warning");
-  addToCart_btn.classList.add("w-100");
+  addToCart_btn.setAttribute("id", prod.id);
+  addToCart_btn.setAttribute("class", "btn btn-outline-warning w-100 m-1");
+  addToCart_btn.addEventListener("click", (event) => {
+    add_product_to_cart(event.target.id);
+  });
   addToCart_btn.textContent = "Add to Cart";
-  addToCart_btn.classList.add("m-1");
   product_btn.append(addToCart_btn);
   product_info.append(product_price, product_rating, product_btn);
   let product = document.createElement("div");
-  product.classList.add("card");
-  product.classList.add("m-2");
+  product.setAttribute("class", "card m-2");
   product.setAttribute("style", "width: 18rem;");
   let productBody = document.createElement("div");
   productBody.classList.add("card-body");
-  productBody.append(productImg, productTitle, product_info);
+  productBody.append(open_details, productImg, productTitle, product_info);
   product.append(productBody);
   return product;
 }
@@ -203,6 +196,17 @@ let cartCount = document.getElementById("lblCartCount");
 function incrementCartCount() {
   cartCount.textContent = Number(cartCount.textContent) + 1;
 }
+
+//bonus functions
+function add_product_to_cart(productID) {
+  cart_products_IDs.push(productID);
+  incrementCartCount();
+  console.log(cart_products_IDs);
+}
+function open_cart() {}
+// function view_product_details(product) {
+
+// }
 
 ///////////////////////////////////////////////////////////////////////////////////
 fetch_all_products()
