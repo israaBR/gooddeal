@@ -52,32 +52,75 @@ function create_product(product) {
     product.rating.count
   );
 }
+
 function generate_product_card(prod) {
+  let productImg = document.createElement("img");
+  productImg.classList.add("card-img-top");
+  productImg.classList.add("mx-5");
+  productImg.classList.add("mb-2");
+  productImg.classList.add("h-50");
+  productImg.src = prod.img;
+  productImg.style.width = "60%";
+  productImg.style.height = "20%";
+  let productTitle = document.createElement("p");
+  productTitle.textContent = String(prod.title).slice(0, 18) + " ..";
+  productTitle.classList.add("card-title");
+  productTitle.classList.add("h-auto");
+  productTitle.classList.add("my-3");
+  let product_info = document.createElement("div");
+  product_info.classList.add("row");
+  product_info.classList.add("h-auto");
+  let product_price = document.createElement("div");
+  product_price.classList.add("col-6");
+  product_price.classList.add("product-price");
+  let currency = document.createElement("p");
+  currency.textContent = "$";
+  currency.classList.add("fw-bold");
+  currency.classList.add("fs-4");
+  currency.classList.add("d-inline-block");
+  let price = document.createElement("p");
+  price.classList.add("price");
+  price.classList.add("fs-5");
+  price.classList.add("d-inline-block");
+  price.textContent = prod.price;
+  product_price.append(currency, price);
+  let product_rating = document.createElement("div");
+  product_rating.classList.add("col-6");
+  product_rating.classList.add("product-rating");
+  let rate = document.createElement("p");
+  rate.classList.add("rate");
+  rate.classList.add("d-inline-block");
+  rate.classList.add("fw-bold");
+  rate.classList.add("fs-5");
+  rate.textContent = prod.rating.rate;
+  let star = document.createElement("i");
+  star.classList.add("fa-regular");
+  star.classList.add("fa-star");
+  star.classList.add("fw-bold");
+  star.classList.add("fs-5");
+  let count = document.createElement("p");
+  count.classList.add("count");
+  count.classList.add("my-1");
+  count.classList.add("d-inline-block");
+  count.textContent = ` (${prod.rating.count})`;
+  product_rating.append(rate, star, count);
+  let product_btn = document.createElement("div");
+  product_btn.classList.add("col-12");
+  let addToCart_btn = document.createElement("button");
+  addToCart_btn.classList.add("btn");
+  addToCart_btn.classList.add("btn-warning");
+  addToCart_btn.classList.add("w-100");
+  addToCart_btn.textContent = "Add to Cart";
+  addToCart_btn.classList.add("m-1");
+  product_btn.append(addToCart_btn);
+  product_info.append(product_price, product_rating, product_btn);
   let product = document.createElement("div");
   product.classList.add("card");
   product.classList.add("m-2");
-  product.setAttribute("style", "width: 17rem;");
+  product.setAttribute("style", "width: 18rem;");
   let productBody = document.createElement("div");
   productBody.classList.add("card-body");
-  let productImg = document.createElement("img");
-  productImg.classList.add("card-img-top");
-  productImg.src = prod.img;
-  productImg.style.height = "50%";
-  productBody.append(productImg);
-  let productTitle = document.createElement("p");
-  productTitle.textContent = prod.title;
-  productTitle.classList.add("card-title");
-  productBody.append(productTitle);
-  let productDesc = document.createElement("p");
-  productDesc.classList.add("card-text");
-  productDesc.textContent = prod.desc;
-  productBody.append(productDesc);
-  let btn = document.createElement("a");
-  btn.textContent = "Add to Cart";
-  btn.classList.add("btn");
-  btn.classList.add("btn-warning");
-  btn.addEventListener("click", incrementCartCount);
-  productBody.append(btn);
+  productBody.append(productImg, productTitle, product_info);
   product.append(productBody);
   return product;
 }
@@ -109,7 +152,6 @@ function generate_category_btns() {
     categoriesParent.append(category_btn);
   });
 }
-
 fetch_categories()
   .then((result) => {
     result.forEach((category) => {
@@ -176,3 +218,8 @@ fetch_categories()
     generate_category_btns();
   })
   .catch((error) => console.log(error));
+
+//TODO  Add to Cart
+//TODO  View Products Description on Hover
+//TODO  Open Cart
+//TODO  Write unit tests for validation functions

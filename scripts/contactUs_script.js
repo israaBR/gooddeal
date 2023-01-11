@@ -24,18 +24,6 @@ function validateMsg(msg) {
     validationMsg.classList.remove("validation-msg-hide");
   } else validationMsg.classList.add("validation-msg-hide");
 }
-// document.querySelector("#name-input").addEventListener("input", (event) => {
-//   console.log("object");
-//   validateName(event.value);
-// });
-// document.querySelector("#email-input").addEventListener("input", (event) => {
-//   console.log("object");
-//   validateEmail(event.value);
-// });
-// document.querySelector("#msg-input").addEventListener("input", (event) => {
-//   console.log("object");
-//   validateMsg(event.value);
-// });
 
 document.querySelector(".form-btn").addEventListener("click", (event) => {
   event.preventDefault();
@@ -43,3 +31,5 @@ document.querySelector(".form-btn").addEventListener("click", (event) => {
   validateEmail(document.querySelector("#email-input").value);
   validateMsg(document.querySelector("#msg-input").value);
 });
+
+// testing
