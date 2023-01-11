@@ -48,9 +48,11 @@
           <a href="#">Wishlist</a>
         </div>
         <div class="cart">
-          <i class="fa-solid fa-cart-shopping"></i>
+          <button class="btn btn-black" data-bs-toggle="modal" data-bs-target="#cartModal">
+            <i class="fa-solid fa-cart-shopping"></i>
+          <!-- <a href="#">Cart</a> -->
+          </button>
           <span class="badge badge-warning" id="lblCartCount">0</span>
-          <a href="#">Cart</a>
         </div>
       </div>
     </header>
@@ -106,6 +108,28 @@
       </div>
     </nav>
     <section class="page-content">
+
+      <!-- Modal -->
+      <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Shopping Cart </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body cart-modal">
+              <div>
+                <p class="fs-5 fw-bold d-inline-block">Total Price($): </p>
+                <p class="fs-5 fw-bold total-price d-inline-block">0</p>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-warning">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="home-row">
         <div class="slider col-12">
           <img src="" id="slider-img" />
@@ -122,8 +146,6 @@
       <div class="categories py-3">
         <button id="all-cat" class="btn btn-warning">All Categories</button>
       </div>
-      <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
-
       <div class="home-row products row">
       </div>
     </section>

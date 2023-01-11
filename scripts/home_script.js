@@ -25,6 +25,12 @@ async function fetch_categories() {
   ).json();
   return result;
 }
+async function fetch_single_product(productID) {
+  let result = await (
+    await fetch(`https://fakestoreapi.com/products/${productID}`)
+  ).json();
+  return result;
+}
 async function fetch_all_products() {
   let result = await (await fetch("https://fakestoreapi.com/products")).json();
   return result;
@@ -54,19 +60,6 @@ function create_product(product) {
 }
 // data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right popover"
 function generate_product_card(prod) {
-  let open_details = document.createElement("div");
-  open_details.setAttribute("class", "position-absolute top-0 end-0");
-  let open_details_btn = document.createElement("button");
-  open_details_btn.setAttribute("class", "btn btn-outline-black");
-  open_details_btn.setAttribute("data-bs-container", "body");
-  open_details_btn.setAttribute("data-bs-toggle", "popover");
-  open_details_btn.setAttribute("data-bs-placement", "right");
-  open_details_btn.setAttribute("title", prod.title);
-  open_details_btn.setAttribute("data-bs-content", prod.description);
-  let open_details_icon = document.createElement("i");
-  open_details_icon.setAttribute("class", "fa-solid fa-ellipsis");
-  open_details_btn.append(open_details_icon);
-  open_details.append(open_details_btn);
   let productImg = document.createElement("img");
   productImg.setAttribute("class", "card-img-top mx-5 mb-2 h-50");
   productImg.src = prod.img;
@@ -103,7 +96,11 @@ function generate_product_card(prod) {
   addToCart_btn.setAttribute("id", prod.id);
   addToCart_btn.setAttribute("class", "btn btn-outline-warning w-100 m-1");
   addToCart_btn.addEventListener("click", (event) => {
-    add_product_to_cart(event.target.id);
+    fetch_single_product(event.target.id)
+      .then((result) => {
+        add_product_to_cart(result);
+      })
+      .catch((error) => console.log(error));
   });
   addToCart_btn.textContent = "Add to Cart";
   product_btn.append(addToCart_btn);
@@ -113,7 +110,7 @@ function generate_product_card(prod) {
   product.setAttribute("style", "width: 18rem;");
   let productBody = document.createElement("div");
   productBody.classList.add("card-body");
-  productBody.append(open_details, productImg, productTitle, product_info);
+  productBody.append(productImg, productTitle, product_info);
   product.append(productBody);
   return product;
 }
@@ -198,15 +195,39 @@ function incrementCartCount() {
 }
 
 //bonus functions
-function add_product_to_cart(productID) {
-  cart_products_IDs.push(productID);
-  incrementCartCount();
-  console.log(cart_products_IDs);
+// open cart
+let cart_modal = document.querySelector(".cart-modal");
+let total_price = document.querySelector(".total-price");
+function update_cart_modal(product) {
+  let newProduct = document.createElement("div");
+  newProduct.setAttribute("class", "row m-3");
+  let col1 = document.createElement("div");
+  col1.setAttribute("class", "col-4");
+  let col2 = document.createElement("div");
+  col2.setAttribute("class", "col-6");
+  let col3 = document.createElement("div");
+  col3.setAttribute("class", "col-2");
+  let product_name = document.createElement("p");
+  product_name.textContent = String(product.title).slice(0, 25) + " ..";
+  let product_img = document.createElement("img");
+  product_img.src = product.image;
+  product_img.style.width = "75%";
+  product_img.style.height = "55%";
+  let product_price = document.createElement("p");
+  product_price.setAttribute("class", "fw-bold");
+  product_price.textContent = "$" + product.price;
+  col1.append(product_img);
+  col2.append(product_name);
+  col3.append(product_price);
+  newProduct.append(col1, col2, col3);
+  cart_modal.before(newProduct);
+  total_price.textContent = Number(total_price.textContent) + product.price;
 }
-function open_cart() {}
-// function view_product_details(product) {
-
-// }
+function add_product_to_cart(product) {
+  update_cart_modal(product);
+  incrementCartCount();
+  console.log(product);
+}
 
 ///////////////////////////////////////////////////////////////////////////////////
 fetch_all_products()
@@ -222,8 +243,3 @@ fetch_categories()
     generate_category_btns();
   })
   .catch((error) => console.log(error));
-
-//TODO  Add to Cart
-//TODO  View Products Description on Hover
-//TODO  Open Cart
-//TODO  Write unit tests for validation functions
