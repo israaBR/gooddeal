@@ -1,3 +1,5 @@
+import "../stylesheets/styles.css";
+
 class Product {
   constructor(id_, title_, price_, desc_, category_, img_, rating_, total_) {
     this.id = id_;
