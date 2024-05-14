@@ -2,12 +2,228 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gooddeal</title>
-    <meta
-      http-equiv="refresh"
-      content="0; url=https://israabr.github.io/gooddeal/home.html"
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../stylesheets/styles.css" />
   </head>
-  <body></body>
+  <body>
+    <header id="header">
+      <div class="brand-container">
+        <div>
+          <a href="home.html"
+            ><img
+              class="logo"
+              src="https://images.vexels.com/media/users/3/132103/isolated/preview/2b512b5ece5d914e68950bfdbf73b481-shopping-cart-circle-icon.png"
+          /></a>
+        </div>
+        <div>
+          <a href="home.html"><h1>gooddeal</h1></a>
+        </div>
+      </div>
+      <div class="search-container">
+        <input placeholder="What are you looking for?" type="text" />
+        <button>search</button>
+      </div>
+      <div class="account-cart-container">
+        <div class="account">
+          <i class="fa-regular fa-user"></i>
+          <a href="#">Account</a>
+        </div>
+        <div class="wishlist">
+          <i class="fa-regular fa-heart"></i>
+          <a href="#">Wishlist</a>
+        </div>
+        <div class="cart">
+          <button class="btn btn-black" data-bs-toggle="modal" data-bs-target="#cartModal">
+            <i class="fa-solid fa-cart-shopping"></i>
+          <!-- <a href="#">Cart</a> -->
+          </button>
+          <span class="badge badge-warning" id="lblCartCount">0</span>
+        </div>
+      </div>
+    </header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle btn btn-warning
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                All Categories
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Bags</a></li>
+                <li><a class="dropdown-item" href="#">Shoes</a></li>
+                <li>
+                  <a class="dropdown-item" href="#">Tops</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">Bottoms</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="home.html"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contactUs.html">Contact Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="aboutUs.html">About Us</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <section class="page-content">
+
+      <!-- Modal -->
+      <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Shopping Cart </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body cart-modal">
+              <div>
+                <p class="fs-5 fw-bold d-inline-block">Total Price($): </p>
+                <p class="fs-5 fw-bold total-price d-inline-block">0</p>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-warning">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="home-row">
+        <div class="slider col-12">
+          <img src="" id="slider-img" />
+          <div class="slider-btns">
+            <button id="slider-prev" class="slider-btn">
+              <i class="fa-solid fa-angles-left"></i>
+            </button>
+            <button id="slider-next" class="slider-btn">
+              <i class="fa-solid fa-angles-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="categories py-3">
+        <button id="all-cat" class="btn btn-warning">All Categories</button>
+      </div>
+      <div class="home-row products row">
+      </div>
+    </section>
+    <section>
+      <a href="#header"><i class="fa-sharp fa-solid fa-arrow-up top"></i></a>
+    </section>
+    <footer>
+      <div class="footer-container1">
+        <div class="footer1-col">
+          <label>Our Offers</label>
+          <ul>
+            <li><a href="">Premium Customers</a></li>
+            <li><a href="">Gooddeal Birthday</a></li>
+            <li><a href="">White Friday Sale</a></li>
+            <li><a href="">Weekend Flash Sale</a></li>
+          </ul>
+        </div>
+        <hr />
+        <div class="footer1-col">
+          <label>Get to Know Us</label>
+          <ul>
+            <li><a href="aboutUs.html">About Us</a></li>
+            <li><a href="">Careers</a></li>
+          </ul>
+        </div>
+        <hr />
+        <div class="footer1-col">
+          <label>Help</label>
+          <ul>
+            <li><a href="contactUs.html">Contact Us</a></li>
+            <li><a href="">Help Center</a></li>
+            <li><a href="">Shipping & Delivery</a></li>
+            <li><a href="">Returns & Replacements</a></li>
+          </ul>
+        </div>
+        <hr />
+        <div class="Connect-with-us">
+          <label>Connect with Us</label>
+          <div class="social-media-icons">
+            <a
+              title="follow us on facebbok"
+              href="https://www.facebook.com"
+              target="_blank"
+              ><i class="fa-brands fa-facebook"></i
+            ></a>
+            <a
+              title="follow us on twitter"
+              href="https://www.twitter.com"
+              target="_blank"
+              ><i class="fa-brands fa-twitter"></i
+            ></a>
+            <a
+              title="follow us on tiktok"
+              href="https://www.tiktok.com"
+              target="_blank"
+              ><i class="fa-brands fa-tiktok"></i
+            ></a>
+            <a
+              title="follow us on instagram"
+              href="https://www.instagram.com"
+              target="_blank"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-container2">
+        <div class="useful-links">
+          <a href="link.html">Conditions of Sale</a>
+          <a href="link.html">Privacy & Cookies</a>
+          <a href="link.html">Terms of Service</a>
+        </div>
+        <div class="trade-mark">
+          <p>©2010–2022, Gooddeal.com, Inc. or its affiliates</p>
+        </div>
+      </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="../scripts/home_script.js"></script>
+  </body>
 </html>
